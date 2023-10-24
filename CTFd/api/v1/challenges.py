@@ -564,7 +564,8 @@ class ChallengeAttempt(Resource):
                 c.id for c in Challenges.query.with_entities(Challenges.id).all()
             }
             prereqs = set(requirements).intersection(all_challenge_ids)
-            if solve_ids >= prereqs:
+            solve_in_req = set(requirements).intersection(solve_ids) 
+            if solve_ids >= prereqs or len(solve_in_req) >= 1:
                 pass
             else:
                 abort(403)

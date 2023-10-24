@@ -173,8 +173,9 @@ class ChallengeList(Resource):
             if challenge.requirements:
                 requirements = challenge.requirements.get("prerequisites", [])
                 anonymize = challenge.requirements.get("anonymize")
+                solve_in_req = set(requirements).intersection(user_solves) 
                 prereqs = set(requirements).intersection(all_challenge_ids)
-                if user_solves >= prereqs or admin_view:
+                if user_solves >= prereqs or admin_view or len(solve_in_req) > 0:
                     pass
                 else:
                     if anonymize:

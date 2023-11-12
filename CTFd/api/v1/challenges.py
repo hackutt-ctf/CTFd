@@ -323,8 +323,9 @@ class Challenge(Resource):
                     # We need to handle the case where a user is viewing challenges anonymously
                     solve_ids = []
                 solve_ids = {value for value, in solve_ids}
+                solve_in_req = set(requirements).intersection(solve_ids) 
                 prereqs = set(requirements).intersection(all_challenge_ids)
-                if solve_ids >= prereqs or is_admin():
+                if solve_ids >= prereqs or is_admin() or len(solve_in_req) > 0:
                     pass
                 else:
                     if anonymize:
